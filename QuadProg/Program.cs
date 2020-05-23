@@ -35,10 +35,9 @@ namespace QuadProg
         {
             Console.WriteLine("Hello World!");
             var matrix = new List<List<double>>()
-            {                       //D+Dt          // -At                             //Z0     //Q    
+            {
                 new List<double>() { -2, 0,     4, 6, 2, 4, 6, 2, 8, 10, 6,      -1,      0 },
-                new List<double>() { 0, -2,    -1, -3, -3, 2, 0, 0, 2, 0, 0,             -1,      0 },
-                                    // A
+                new List<double>() {  0, -2,    -1, -3, -3, 2, 0, 0, 2, 0, 0,             -1,      0 },
                 new List<double>() { -4, 1,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
                 new List<double>() { -6, 3,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
                 new List<double>() { -2, 3,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
@@ -49,21 +48,6 @@ namespace QuadProg
                 new List<double>() { -10, 0,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
                 new List<double>() { -6, 0,      0, 0, 0, 0, 0, 0, 0, 0, 0,              -1,      -1 },
 
-
-                #region Case 2
-		//new List<double>() { -2, 0,   -3, 0, -3, -3, 0, -3, 0, 3, 0,      -1,      0 },
-  //              new List<double>() { 0, -2,    2, 6, 6, 0, 4, 4, 0, 4, 4,             -1,      0 },
-  //                                  // A
-  //              new List<double>() { 3, -2,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
-  //              new List<double>() { 0, -6,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
-  //              new List<double>() { 3, -6,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
-  //              new List<double>() { 3, 0,      0, 0, 0, 0, 0, 0, 0, 0, 0,              -1,      -1 },
-  //              new List<double>() { 0, -4,      0, 0, 0, 0, 0, 0, 0, 0, 0,              -1,      -1 },
-  //              new List<double>() { 3, -4,      0, 0, 0, 0, 0, 0, 0, 0, 0,              -1,      -1 },
-  //              new List<double>() { 0, 0,      0, 0, 0, 0, 0, 0, 0, 0, 0,              -1,      -1 },
-  //              new List<double>() { -3, -4,      0, 0, 0, 0, 0, 0, 0, 0, 0,             -1,      -1 },
-  //              new List<double>() { 0, -4,      0, 0, 0, 0, 0, 0, 0, 0, 0,              -1,      -1 }, 
-	#endregion
             };
             var label = new Label();
             Print(matrix, label);
@@ -85,23 +69,6 @@ namespace QuadProg
                 prevMatr = newMatr;
                 changedBasisChar = newChangedBasisChar;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             Console.ReadKey();
         }
 
@@ -110,7 +77,7 @@ namespace QuadProg
             var newMatrix = InitNewMatrix(matrix);
             var qVals = matrix.Select(x => x[qColIndex]).ToList();
             var qMinVal = qVals.Min();
-            var qMinValIndex =  qVals.IndexOf(qMinVal);
+            var qMinValIndex = qVals.IndexOf(qMinVal);
 
             var changedBasisChar = label.SwapChars(qColIndex - 1, qMinValIndex);
 
@@ -142,7 +109,7 @@ namespace QuadProg
             return (newMatrix, qMinValIndex, changedBasisChar);
         }
 
-        static (List<List<double>>,  string) BaseStep(List<List<double>> matrix, Label label, string changedChar)
+        static (List<List<double>>, string) BaseStep(List<List<double>> matrix, Label label, string changedChar)
         {
             var colToWatchIndex = changedChar[0] == 'w' ? label.colStr.IndexOf($"z{int.Parse(changedChar.Split('w')[1])}") : label.colStr.IndexOf($"w{int.Parse(changedChar.Split('z')[1])}");
 
@@ -218,9 +185,9 @@ namespace QuadProg
             var minIndex = -1;
             for (int i = 0; i < ms.Count; i++)
             {
-                if (ms[i]> minimum)
+                if (ms[i] > minimum)
                 {
-                    if (qs[i]/ms[i]< minVal)
+                    if (qs[i] / ms[i] < minVal)
                     {
                         minVal = ms[i];
                         minIndex = i;
